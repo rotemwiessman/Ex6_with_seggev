@@ -126,6 +126,33 @@ def low_pass_filter(audio_data):
     return new_audio_data
 
 
+def edit_menu():
+    pass
+
+
+def start_menu():
+    while True:
+        print("Welcome to the wave editor.\nPlease select one of the options "
+              "below:(enter the number of the option).\n1. Change wav "
+              "file.\n2. "
+              "Compose new melody in wav format.\n3. Exit the program")
+        choose = input()
+        if choose in '123':
+            break
+        print("Please enter a number between 1-3")
+    if choose == START_MENU['EDIT_AUDIO']:
+        edit_menu()
+    elif choose == START_MENU['CREATE_AUDIO']:
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     audio_data = [[1111,2222],[MAX_VALUE-30,MIN_VALUE+30],[0,-555]]
     print(audio_data)
