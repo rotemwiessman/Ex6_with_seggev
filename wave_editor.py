@@ -4,6 +4,7 @@ START_MENU = {"EDIT_AUDIO": "1", "CREATE_AUDIO": "2", "CLOSE": "3"}
 MAX_VALUE = 32767
 MIN_VALUE = -32768
 
+
 def minus_audio(audio_data):
     """
     replace all the audio data with minus of the current audio data
@@ -27,9 +28,7 @@ def change_volume(audi_data, coefficient):
     changed_data = []
     for pair in audio_data:
         changed_data.append([int(pair[0] * coefficient), int(pair[1] * coefficient)])
-
     return changed_data
-
 
 
 def volume_up(audio_data):
