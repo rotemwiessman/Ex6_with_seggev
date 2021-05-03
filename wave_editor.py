@@ -1,6 +1,11 @@
+from wave_helper import *
+
+
 EDIT_MENU = {"REVERS": "1", "MINUS": "2", "FAST FORWARD": "3", "SLOW_DOWN": "4",
              "VOLUME_UP": "5", "VOLUME_DOWN": "6", "LOW_PASS_FILTER": "7", "FINISH_EDIT": "8"}
 START_MENU = {"EDIT_AUDIO": "1", "CREATE_AUDIO": "2", "CLOSE": "3"}
+FREQUENCY_DIC = {"A": 440, "B": 494, "C": 523, "D": 587, "E": 659, "F": 698, "G": 784}
+
 MAX_VALUE = 32767
 MIN_VALUE = -32768
 
@@ -10,8 +15,6 @@ from wave_helper import *
 def minus_audio(audio_data):
     """
     replace all the audio data with minus of the current audio data
-    :param audio_data:
-    :return:
     """
     minus_audio_data = []
     for pair in audio_data:
@@ -42,10 +45,14 @@ def volume_up(audio_data):
     changed_data =change_volume(audio_data, 1.2)
     counter = 0
     for pair in changed_data:
-        if pair[0] > MAX_VALUE: changed_data[counter][0] = MAX_VALUE
-        elif pair[0] < MIN_VALUE: changed_data[counter][0] = MIN_VALUE
-        if pair[1] > MAX_VALUE: changed_data[counter][1] = MAX_VALUE
-        elif pair[1] < MIN_VALUE: changed_data[counter][1] = MIN_VALUE
+        if pair[0] > MAX_VALUE:
+            changed_data[counter][0] = MAX_VALUE
+        elif pair[0] < MIN_VALUE:
+            changed_data[counter][0] = MIN_VALUE
+        if pair[1] > MAX_VALUE:
+            changed_data[counter][1] = MAX_VALUE
+        elif pair[1] < MIN_VALUE:
+            changed_data[counter][1] = MIN_VALUE
         counter += 1
         # deny the function from exceeding the value limit
     return changed_data
@@ -61,8 +68,10 @@ def volume_down(audio_data):
     return change_volume(audio_data, a)
 
 
-def finish_and_save(audio_data):
-    pass
+def finish_and_save(final_audio_data, sample_rate):
+    while save_wave(sample_rate, final_audio_data, input("Enter filename for the wav file")) == -1:
+        print("try new name please")
+
 
 
 def reverse_filter(audio_data):
@@ -193,20 +202,18 @@ def start_menu():
             create_audio()
         else:
             break
+        pass
 
 
 
-
-
-
-
-
-
+def read_input_file(file_name):
+    instructions = []
+    with open(file_name, "r") as f:
+        print(f.read())
 
 
 
 if __name__ == '__main__':
-    audio_data = [[1111,2222],[MAX_VALUE-30,MIN_VALUE+30],[0,-555]]
-    print(audio_data)
-    audio_data = volume_up(audio_data)
-    print(audio_data)
+    with open("input_file.txt", "r") as f:
+        print(f.read().split())
+        print()
