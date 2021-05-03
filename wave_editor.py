@@ -4,6 +4,8 @@ START_MENU = {"EDIT_AUDIO": "1", "CREATE_AUDIO": "2", "CLOSE": "3"}
 MAX_VALUE = 32767
 MIN_VALUE = -32768
 
+from wave_helper import *
+
 
 def minus_audio(audio_data):
     """
@@ -127,22 +129,72 @@ def low_pass_filter(audio_data):
 
 
 def edit_menu():
+    while True:
+        filename = input("Please enter the name of the file you want to "
+                         "modify")
+        try:
+            sample_rate, audio_data = load_wave(filename)
+        except:
+            continue
+        break
+    while True:
+        while True:
+            print("Choose the way you want to modify your file: (enter the "
+                  "number of the option)\n1. Reverse\n2. Negation\n3. Fast "
+                  "Forward\n4. Slow Down\n5.Volume Up\n6.Volume Down\n7.Low "
+                  "Pass\n8.Back To Start Menu")
+            choose = input()
+            if choose in '12345678':
+                break
+            print("Please enter a number between 1-8")
+        if choose == EDIT_MENU["REVERS"]:
+            audio_data = reverse_filter(audio_data)
+            print("Successfully done the Reverse change")
+        elif choose == EDIT_MENU["MINUS"]:
+            audio_data = minus_audio(audio_data)
+            print("Successfully done the Negation change")
+        elif choose == EDIT_MENU["FAST FORWARD"]:
+            audio_data = fast_forward_filter(audio_data)
+            print("Successfully done the Fast Forward change")
+        elif choose == EDIT_MENU["SLOW_DOWN"]:
+            audio_data = slow_down_filter(audio_data)
+            print("Successfully done the Slow Down change")
+        elif choose == EDIT_MENU["VOLUME_UP"]:
+            audio_data = volume_up(audio_data)
+            print("Successfully done the Volume Up change")
+        elif choose == EDIT_MENU["VOLUME_DOWN"]:
+            audio_data = volume_down(audio_data)
+            print("Successfully done the Volume down change")
+        elif choose == EDIT_MENU["LOW_PASS_FILTER"]:
+            audio_data = low_pass_filter(audio_data)
+            print("Successfully done the Low Pass change")
+        else:
+            break
+
+
+def create_audio():
     pass
 
 
 def start_menu():
     while True:
-        print("Welcome to the wave editor.\nPlease select one of the options "
-              "below:(enter the number of the option).\n1. Change wav "
-              "file.\n2. "
-              "Compose new melody in wav format.\n3. Exit the program")
-        choose = input()
-        if choose in '123':
+        while True:
+            print("Welcome to the wave editor.\nPlease select one of the options "
+                  "below:(enter the number of the option).\n1. Change wav "
+                  "file.\n2. "
+                  "Compose new melody in wav format.\n3. Exit the program")
+            choose = input()
+            if choose in '123':
+                break
+            print("Please enter a number between 1-3")
+        if choose == START_MENU['EDIT_AUDIO']:
+            edit_menu()
+        elif choose == START_MENU['CREATE_AUDIO']:
+            create_audio()
+        else:
             break
-        print("Please enter a number between 1-3")
-    if choose == START_MENU['EDIT_AUDIO']:
-        edit_menu()
-    elif choose == START_MENU['CREATE_AUDIO']:
+
+
 
 
 
