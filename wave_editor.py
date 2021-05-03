@@ -132,6 +132,3 @@ if __name__ == '__main__':
     print(audio_data)
     audio_data = volume_up(audio_data)
     print(audio_data)
-    print("")
-
-print("")
